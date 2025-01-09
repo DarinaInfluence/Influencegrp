@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Retail Development Analysis 2025</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 20px; 
+            font-family: Arial; 
+        }
+        .chart { 
+            height: 300px; 
+            margin: 20px 0; 
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Retail Development Analysis 2025</h1>
+
+    <div class="chart">
+        <canvas id="topicsChart"></canvas>
+    </div>
+
+    <div class="chart">
+        <canvas id="initiativesChart"></canvas>
+    </div>
+
+    <div class="chart">
+        <canvas id="solutionsChart"></canvas>
+    </div>
+
+    <script>
+        function createChart(id, labels, data, title) {
+            new Chart(document.getElementById(id), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: title,
+                        data: data,
+                        backgroundColor: 'rgba(54, 162, 235, 0.8)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        createChart('topicsChart', 
+            ['Design & Retail', 'Construction', 'Sustainability'],
+            [7, 4, 3],
+            'Key Topics'
+        );
+
+        createChart('initiativesChart',
+            ['Store Development', 'Design Innovation', 'Strategic Growth'],
+            [7, 5, 3],
+            'Top Initiatives'
+        );
+
+        createChart('solutionsChart',
+            ['Core Infrastructure', 'Essential Services', 'Supporting Elements'],
+            [8, 4, 3],
+            'Solutions & Services'
+        );
+    </script>
+</body>
+</html>
