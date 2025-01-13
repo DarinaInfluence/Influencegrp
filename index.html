@@ -8,25 +8,27 @@
         body {
             padding: 20px;
             font-family: Arial, sans-serif;
+            background-color: white;
         }
         h1 {
             text-align: center;
-            /* Since Rota Black isn't freely available, using Roboto Black as a substitute */
             font-family: 'Roboto', sans-serif;
             font-weight: 900;
             margin-bottom: 40px;
         }
         .charts-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 40px;
             max-width: 1200px;
             margin: auto;
         }
         .chart-wrapper {
-            width: 32%;
+            width: 100%;
+            height: 300px;
         }
         h2 {
-            text-align: center;
+            text-align: left;
             font-size: 18px;
             margin-bottom: 15px;
         }
@@ -49,14 +51,14 @@
         </div>
     </div>
     <script>
-        function createChart(canvasId, labels, data) {
+        function createChart(canvasId, data) {
             var ctx = document.getElementById(canvasId).getContext('2d');
             new Chart(ctx, {
-                type: 'bar',
+                type: 'horizontalBar',
                 data: {
-                    labels: labels,
+                    labels: data.map(item => item.label),
                     datasets: [{
-                        data: data,
+                        data: data.map(item => item.value),
                         backgroundColor: '#89e7ff',
                         borderColor: '#89e7ff'
                     }]
@@ -66,34 +68,125 @@
                         display: false
                     },
                     scales: {
-                        yAxes: [{
+                        xAxes: [{
                             ticks: {
                                 beginAtZero: true,
                                 max: 10
                             }
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: false
+                            }
                         }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                const item = data.datasets[0];
+                                const index = tooltipItem.index;
+                                const details = data.details[index];
+                                return ['Mentions: ' + tooltipItem.xLabel, ''].concat(details);
+                            }
+                        }
                     }
                 }
             });
         }
 
         // Key Topics Data
-        createChart('topicsChart', 
-            ['Design', 'Construction', 'Sustainability', 'AI', 'Cost', 'Development', 'Innovation'],
-            [7, 6, 5, 4, 4, 3, 3]
-        );
+        createChart('topicsChart', [
+            {
+                label: 'Design & Retail Strategy',
+                value: 7,
+                details: [
+                    'Modern retail concepts',
+                    'Customer experience focus',
+                    'Digital/physical integration',
+                    'Brand identity implementation'
+                ]
+            },
+            {
+                label: 'Construction & Cost',
+                value: 6,
+                details: [
+                    'Construction optimization',
+                    'Budget forecasting',
+                    'Value engineering'
+                ]
+            },
+            {
+                label: 'Sustainability',
+                value: 5,
+                details: [
+                    'Green initiatives',
+                    'Energy efficiency',
+                    'Environmental impact'
+                ]
+            }
+        ]);
 
-        // Top Initiatives Data
-        createChart('initiativesChart',
-            ['Store Dev', 'Expansion', 'Renovation', 'Digital', 'Training', 'Branding', 'Safety'],
-            [8, 7, 6, 5, 4, 4, 3]
-        );
+        // Initiatives Data
+        createChart('initiativesChart', [
+            {
+                label: 'Store Development',
+                value: 8,
+                details: [
+                    'New store openings',
+                    'Renovation projects',
+                    'Location optimization'
+                ]
+            },
+            {
+                label: 'Design Innovation',
+                value: 7,
+                details: [
+                    'Modern concept development',
+                    'Experience enhancement',
+                    'Brand refresh programs'
+                ]
+            },
+            {
+                label: 'Strategic Growth',
+                value: 6,
+                details: [
+                    'Business expansion',
+                    'Sustainability programs',
+                    'Value engineering'
+                ]
+            }
+        ]);
 
         // Solutions Data
-        createChart('solutionsChart',
-            ['Lighting', 'Fixtures', 'Design', 'Materials', 'Tech', 'Services', 'Energy'],
-            [9, 7, 6, 5, 4, 4, 3]
-        );
+        createChart('solutionsChart', [
+            {
+                label: 'Core Infrastructure',
+                value: 9,
+                details: [
+                    'Lighting solutions',
+                    'Advanced fixture systems',
+                    'Digital platforms'
+                ]
+            },
+            {
+                label: 'Essential Services',
+                value: 7,
+                details: [
+                    'Design services',
+                    'Millwork solutions',
+                    'Flooring systems'
+                ]
+            },
+            {
+                label: 'Supporting Elements',
+                value: 6,
+                details: [
+                    'Architectural services',
+                    'Sustainable materials',
+                    'Custom solutions'
+                ]
+            }
+        ]);
     </script>
 </body>
 </html>
