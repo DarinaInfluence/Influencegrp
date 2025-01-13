@@ -106,6 +106,24 @@
             </div>
         </div>
     </div>
+      <!-- HealthSpaces Section -->
+    <div class="event-section">
+        <h1 class="event-title">HealthSpaces Spring</h1>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>Key Topics</h2>
+                <canvas id="healthTopicsChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Top Initiatives</h2>
+                <canvas id="healthInitiativesChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Solutions</h2>
+                <canvas id="healthSolutionsChart"></canvas>
+            </div>
+        </div>
+    </div>
     
     <script>
         function createChart(canvasId, config, color) {
@@ -357,6 +375,44 @@
                 ]
             }
         };
+                // HealthSpaces Data
+        const healthConfig = {
+            topics: {
+                labels: [
+                    'AI/Technology',
+                    'Value Engineering'
+                ],
+                data: [3, 1],
+                tooltips: [
+                    ['Facilities management', 'Future healthcare tech', 'AI integration'],
+                    ['Cost optimization', 'Contractor transparency', 'Project strategies']
+                ]
+            },
+            initiatives: {
+                labels: [
+                    'Expansion/Planning',
+                    'Maintenance'
+                ],
+                data: [2, 1],
+                tooltips: [
+                    ['Master planning', 'Medical center development', 'Facility expansion'],
+                    ['Deferred maintenance', 'Facility upkeep', 'Infrastructure']
+                ]
+            },
+            solutions: {
+                labels: [
+                    'Construction',
+                    'Smart Systems',
+                    'Materials'
+                ],
+                data: [2, 2, 2],
+                tooltips: [
+                    ['Construction services', 'Building products', 'Project delivery'],
+                    ['Infrastructure', 'Controls', 'Technology integration'],
+                    ['Flooring', 'Sustainable materials', 'Finishes']
+                ]
+            }
+        };
 
         // Create all charts
         createChart('retailTopicsChart', retailConfig.topics, '#89e7ff');
@@ -370,6 +426,14 @@
         createChart('bankTopicsChart', bankConfig.topics, '#4458fb');
         createChart('bankInitiativesChart', bankConfig.initiatives, '#4458fb');
         createChart('bankSolutionsChart', bankConfig.solutions, '#4458fb');
+
+        // Create HealthSpaces charts with adjusted scale for fewer categories
+        createChart('healthTopicsChart', healthConfig.topics, '#72faca');
+        createChart('healthInitiativesChart', healthConfig.initiatives, '#72faca');
+        createChart('healthSolutionsChart', healthConfig.solutions, '#72faca');
+    </script>
+</body>
+</html>
     </script>
 </body>
 </html>
