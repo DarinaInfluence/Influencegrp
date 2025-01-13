@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RetailSpaces Spring Suppliers Solutions</title>
+    <title>Event Analysis Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +16,18 @@
             font-weight: 900;
             margin-bottom: 40px;
         }
+        .event-section {
+            margin-bottom: 60px;
+        }
+        .event-title {
+            text-align: center;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            font-size: 24px;
+            margin: 40px 0;
+            padding-top: 40px;
+            border-top: 2px solid #eee;
+        }
         .charts-container {
             display: flex;
             justify-content: space-between;
@@ -24,33 +36,110 @@
         }
         .chart-wrapper {
             width: 32%;
-            height: 250px;  /* Fixed height for all charts */
+            height: 250px;
         }
         h2 {
             text-align: center;
             font-size: 16px;
             margin-bottom: 10px;
         }
+        .first-event {
+            border-top: none;
+            padding-top: 0;
+        }
     </style>
 </head>
 <body>
-    <h1>RetailSpaces Spring Suppliers Solutions</h1>
-    <div class="charts-container">
-        <div class="chart-wrapper">
-            <h2>Key Topics</h2>
-            <canvas id="topicsChart"></canvas>
-        </div>
-        <div class="chart-wrapper">
-            <h2>Top Initiatives</h2>
-            <canvas id="initiativesChart"></canvas>
-        </div>
-        <div class="chart-wrapper">
-            <h2>Solutions</h2>
-            <canvas id="solutionsChart"></canvas>
+    <!-- RetailSpaces Section -->
+    <div class="event-section">
+        <h1 class="event-title first-event">RetailSpaces Spring Suppliers Solutions</h1>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>Key Topics</h2>
+                <canvas id="retailTopicsChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Top Initiatives</h2>
+                <canvas id="retailInitiativesChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Solutions</h2>
+                <canvas id="retailSolutionsChart"></canvas>
+            </div>
         </div>
     </div>
+
+    <!-- RestaurantSpaces Section -->
+    <div class="event-section">
+        <h1 class="event-title">RestaurantSpaces Spring</h1>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>Key Topics</h2>
+                <canvas id="restaurantTopicsChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Top Initiatives</h2>
+                <canvas id="restaurantInitiativesChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Solutions</h2>
+                <canvas id="restaurantSolutionsChart"></canvas>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const chartConfig = {
+        function createChart(canvasId, config, color) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            return new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: config.labels,
+                    datasets: [{
+                        data: config.data,
+                        backgroundColor: color,
+                        borderColor: color,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontSize: 9
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: 10,
+                                stepSize: 2
+                            }
+                        }]
+                    },
+                    tooltips: {
+                        callbacks: {
+                            title: function(tooltipItem, data) {
+                                return data.labels[tooltipItem[0].index];
+                            },
+                            label: function(tooltipItem, data) {
+                                const value = data.datasets[0].data[tooltipItem.index];
+                                const details = config.tooltips[tooltipItem.index];
+                                return ['Mentions: ' + value].concat(details);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // RetailSpaces Data
+        const retailConfig = {
             topics: {
                 labels: [
                     'Design & Retail',
@@ -116,59 +205,82 @@
             }
         };
 
-        function createChart(canvasId, config) {
-            const ctx = document.getElementById(canvasId).getContext('2d');
-            return new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: config.labels,
-                    datasets: [{
-                        data: config.data,
-                        backgroundColor: '#89e7ff',
-                        borderColor: '#89e7ff',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        xAxes: [{
-                            ticks: {
-                                fontSize: 9
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true,
-                                max: 10,
-                                stepSize: 2
-                            }
-                        }]
-                    },
-                    tooltips: {
-                        callbacks: {
-                            title: function(tooltipItem, data) {
-                                return data.labels[tooltipItem[0].index];
-                            },
-                            label: function(tooltipItem, data) {
-                                const value = data.datasets[0].data[tooltipItem.index];
-                                const details = config.tooltips[tooltipItem.index];
-                                return ['Mentions: ' + value].concat(details);
-                            }
-                        }
-                    }
-                }
-            });
-        }
+       // RestaurantSpaces Data
+        const restaurantConfig = {
+            topics: {
+                labels: [
+                    'Build Cost',
+                    'Technology/AI',
+                    'Development',
+                    'Site Selection',
+                    'Design Innovation',
+                    'Efficiency',
+                    'Permitting'
+                ],
+                data: [10, 8, 7, 6, 5, 4, 3],
+                tooltips: [
+                    ['Cost reduction', 'Investment optimization', 'Construction costs'],
+                    ['Automation', 'AI integration', 'Digital solutions'],
+                    ['Growth strategy', 'Market expansion', 'New locations'],
+                    ['Real estate strategy', 'Location analysis', 'Market planning'],
+                    ['Concept innovation', 'Customer experience', 'Brand design'],
+                    ['Operational efficiency', 'Process optimization', 'Time reduction'],
+                    ['Approval process', 'Municipality relations', 'Timing']
+                ]
+            },
+            initiatives: {
+                labels: [
+                    'Cost Reduction',
+                    'New Locations',
+                    'Remodels',
+                    'Brand Development',
+                    'Digital Integration',
+                    'Market Expansion',
+                    'Process Optimize'
+                ],
+                data: [9, 8, 7, 5, 4, 4, 3],
+                tooltips: [
+                    ['Build cost reduction', 'Value engineering', 'Cost streamlining'],
+                    ['Site development', 'Growth planning', 'New markets'],
+                    ['Store refreshes', 'Renovations', 'Updates'],
+                    ['Brand evolution', 'New prototypes', 'Image updates'],
+                    ['Technology adoption', 'Digital solutions', 'Systems integration'],
+                    ['New markets', 'Territory growth', 'Geographic expansion'],
+                    ['Efficiency improvements', 'Operations enhancement', 'Streamlining']
+                ]
+            },
+            solutions: {
+                labels: [
+                    'General Contract',
+                    'Kitchen Equip',
+                    'Tech Systems',
+                    'Design Service',
+                    'Furniture',
+                    'Lighting',
+                    'Materials'
+                ],
+                data: [11, 9, 7, 6, 5, 5, 4],
+                tooltips: [
+                    ['Construction services', 'Project management', 'Build partners'],
+                    ['Kitchen solutions', 'Food service equipment', 'BOH systems'],
+                    ['Digital platforms', 'POS systems', 'Automation tools'],
+                    ['Interior design', 'Space planning', 'Architectural services'],
+                    ['FF&E', 'Dining furniture', 'Millwork'],
+                    ['Interior lighting', 'Fixture solutions', 'Energy efficient'],
+                    ['Finishes', 'Interior materials', 'Sustainable options']
+                ]
+            }
+        };
 
-        // Create all charts
-        createChart('topicsChart', chartConfig.topics);
-        createChart('initiativesChart', chartConfig.initiatives);
-        createChart('solutionsChart', chartConfig.solutions);
+        // Create RetailSpaces charts
+        createChart('retailTopicsChart', retailConfig.topics, '#89e7ff');
+        createChart('retailInitiativesChart', retailConfig.initiatives, '#89e7ff');
+        createChart('retailSolutionsChart', retailConfig.solutions, '#89e7ff');
+
+        // Create RestaurantSpaces charts
+        createChart('restaurantTopicsChart', restaurantConfig.topics, '#8300e9');
+        createChart('restaurantInitiativesChart', restaurantConfig.initiatives, '#8300e9');
+        createChart('restaurantSolutionsChart', restaurantConfig.solutions, '#8300e9');
     </script>
 </body>
 </html>
