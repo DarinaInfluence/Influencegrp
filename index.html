@@ -88,6 +88,25 @@
         </div>
     </div>
 
+    <!-- BankSpaces Section -->
+    <div class="event-section">
+        <h1 class="event-title">BankSpaces Spring</h1>
+        <div class="charts-container">
+            <div class="chart-wrapper">
+                <h2>Key Topics</h2>
+                <canvas id="bankTopicsChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Top Initiatives</h2>
+                <canvas id="bankInitiativesChart"></canvas>
+            </div>
+            <div class="chart-wrapper">
+                <h2>Solutions</h2>
+                <canvas id="bankSolutionsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
     <script>
         function createChart(canvasId, config, color) {
             const ctx = document.getElementById(canvasId).getContext('2d');
@@ -111,13 +130,13 @@
                     scales: {
                         xAxes: [{
                             ticks: {
-                                fontSize: 9
+                                fontSize: 11  // Increased from 9
                             }
                         }],
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
-                                max: 10,
+                                max: 12,     // Adjusted max for bank data
                                 stepSize: 2
                             }
                         }]
@@ -271,16 +290,86 @@
                 ]
             }
         };
+        
+ // BankSpaces Data
+        const bankConfig = {
+            topics: {
+                labels: [
+                    'Branch Design',
+                    'Technology/AI',
+                    'Brand Experience',
+                    'Expansion',
+                    'Cost Management',
+                    'Sustainability',
+                    'Innovation'
+                ],
+                data: [12, 8, 6, 5, 4, 3, 3],
+                tooltips: [
+                    ['Branch of the future', 'Design evolution', 'Space optimization'],
+                    ['Digital integration', 'AI applications', 'Smart banking'],
+                    ['Customer experience', 'Relationship banking', 'Service design'],
+                    ['Location strategy', 'Market selection', 'Network growth'],
+                    ['Build cost control', 'Value engineering', 'Investment optimization'],
+                    ['Climate initiatives', 'Green design', 'Environmental impact'],
+                    ['New concepts', 'Future-proofing', 'Modern banking']
+                ]
+            },
+            initiatives: {
+                labels: [
+                    'Renovations',
+                    'Network Expand',
+                    'Rebranding',
+                    'Tech Deploy',
+                    'Design Standard',
+                    'Market Growth',
+                    'Sustainability'
+                ],
+                data: [11, 9, 7, 6, 5, 4, 3],
+                tooltips: [
+                    ['Branch refresh', 'Modernization', 'Updates'],
+                    ['New locations', 'Market expansion', 'Growth'],
+                    ['Brand evolution', 'Identity updates', 'Visual standards'],
+                    ['ITM/ATM deployment', 'Digital systems', 'Smart banking'],
+                    ['Design guidelines', 'Brand standards', 'Consistency'],
+                    ['New markets', 'Territory expansion', 'Portfolio growth'],
+                    ['Carbon reduction', 'Green initiatives', 'Efficiency']
+                ]
+            },
+            solutions: {
+                labels: [
+                    'Furniture',
+                    'Tech Systems',
+                    'Design Service',
+                    'Finishes',
+                    'Signage',
+                    'Construction',
+                    'Digital Int'
+                ],
+                data: [10, 8, 7, 6, 5, 4, 4],
+                tooltips: [
+                    ['Branch furniture', 'Fixtures', 'Workstations'],
+                    ['Banking technology', 'Digital platforms', 'ATM/ITM'],
+                    ['Interior design', 'Space planning', 'Architecture'],
+                    ['Interior materials', 'Sustainable options', 'Aesthetics'],
+                    ['Branch signage', 'Branding elements', 'Wayfinding'],
+                    ['General contractors', 'Project management', 'Build services'],
+                    ['Digital solutions', 'Integration services', 'Tech platforms']
+                ]
+            }
+        };
 
-        // Create RetailSpaces charts
+        // Create all charts
         createChart('retailTopicsChart', retailConfig.topics, '#89e7ff');
         createChart('retailInitiativesChart', retailConfig.initiatives, '#89e7ff');
         createChart('retailSolutionsChart', retailConfig.solutions, '#89e7ff');
 
-        // Create RestaurantSpaces charts
         createChart('restaurantTopicsChart', restaurantConfig.topics, '#8300e9');
         createChart('restaurantInitiativesChart', restaurantConfig.initiatives, '#8300e9');
         createChart('restaurantSolutionsChart', restaurantConfig.solutions, '#8300e9');
+
+        createChart('bankTopicsChart', bankConfig.topics, '#4458fb');
+        createChart('bankInitiativesChart', bankConfig.initiatives, '#4458fb');
+        createChart('bankSolutionsChart', bankConfig.solutions, '#4458fb');
     </script>
 </body>
 </html>
