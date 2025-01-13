@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RetailSpaces Spring Suppliers Solutions</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            /* Since Rota Black isn't freely available, using Roboto Black as a substitute */
+            font-family: 'Roboto', sans-serif;
+            font-weight: 900;
+            margin-bottom: 40px;
+        }
+        .charts-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .chart-wrapper {
+            width: 32%;
+        }
+        h2 {
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RetailSpaces Spring Suppliers Solutions</h1>
+    <div class="charts-container">
+        <div class="chart-wrapper">
+            <h2>Key Topics</h2>
+            <canvas id="topicsChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <h2>Top Initiatives</h2>
+            <canvas id="initiativesChart"></canvas>
+        </div>
+        <div class="chart-wrapper">
+            <h2>Solutions</h2>
+            <canvas id="solutionsChart"></canvas>
+        </div>
+    </div>
+    <script>
+        function createChart(canvasId, labels, data) {
+            var ctx = document.getElementById(canvasId).getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: '#89e7ff',
+                        borderColor: '#89e7ff'
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                max: 10
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        // Key Topics Data
+        createChart('topicsChart', 
+            ['Design', 'Construction', 'Sustainability', 'AI', 'Cost', 'Development', 'Innovation'],
+            [7, 6, 5, 4, 4, 3, 3]
+        );
+
+        // Top Initiatives Data
+        createChart('initiativesChart',
+            ['Store Dev', 'Expansion', 'Renovation', 'Digital', 'Training', 'Branding', 'Safety'],
+            [8, 7, 6, 5, 4, 4, 3]
+        );
+
+        // Solutions Data
+        createChart('solutionsChart',
+            ['Lighting', 'Fixtures', 'Design', 'Materials', 'Tech', 'Services', 'Energy'],
+            [9, 7, 6, 5, 4, 4, 3]
+        );
+    </script>
+</body>
+</html>
