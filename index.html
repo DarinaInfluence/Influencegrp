@@ -21,22 +21,15 @@
             justify-content: space-between;
             max-width: 1200px;
             margin: auto;
-            flex-wrap: wrap;
         }
         .chart-wrapper {
             width: 32%;
-            min-width: 300px;
-            margin-bottom: 20px;
+            height: 250px;  /* Fixed height for all charts */
         }
         h2 {
             text-align: center;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
-        @media (max-width: 1000px) {
-            .chart-wrapper {
-                width: 100%;
-            }
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -59,30 +52,66 @@
     <script>
         const chartConfig = {
             topics: {
-                labels: ['Design & Retail', 'Construction', 'Sustainability'],
-                data: [7, 4, 3],
+                labels: [
+                    'Design & Retail',
+                    'Construction',
+                    'Sustainability',
+                    'AI Integration',
+                    'Cost Management',
+                    'Market Expansion',
+                    'Development'
+                ],
+                data: [7, 6, 5, 4, 4, 3, 3],
                 tooltips: [
                     ['Modern retail concepts', 'Customer experience', 'Digital integration'],
                     ['Construction optimization', 'Budget forecasting', 'Value engineering'],
-                    ['Green initiatives', 'Energy efficiency', 'Environmental impact']
+                    ['Green initiatives', 'Energy efficiency', 'Environmental impact'],
+                    ['Process automation', 'Digital tools', 'Smart analytics'],
+                    ['Cost optimization', 'Value engineering', 'Budget control'],
+                    ['New markets', 'Portfolio expansion', 'Growth strategy'],
+                    ['Process improvement', 'Innovation', 'Efficiency']
                 ]
             },
             initiatives: {
-                labels: ['Store Development', 'Design Innovation', 'Strategic Growth'],
-                data: [8, 5, 3],
+                labels: [
+                    'Store Development',
+                    'Design Innovation',
+                    'Renovation',
+                    'Digital Integration',
+                    'Sustainability',
+                    'Training',
+                    'Brand Refresh'
+                ],
+                data: [8, 7, 6, 5, 4, 4, 3],
                 tooltips: [
-                    ['New store openings', 'Renovation projects', 'Location optimization'],
+                    ['New store openings', 'Location optimization', 'Market expansion'],
                     ['Modern concepts', 'Experience enhancement', 'Brand refresh'],
-                    ['Business expansion', 'Sustainability programs', 'Value engineering']
+                    ['Store updates', 'Facility improvements', 'Modernization'],
+                    ['Technology integration', 'Digital tools', 'Smart systems'],
+                    ['Green initiatives', 'Energy efficiency', 'Eco-friendly'],
+                    ['Staff development', 'Process training', 'Skills enhancement'],
+                    ['Visual updates', 'Brand alignment', 'Modern aesthetics']
                 ]
             },
             solutions: {
-                labels: ['Core Infrastructure', 'Essential Services', 'Support Elements'],
-                data: [9, 7, 5],
+                labels: [
+                    'Lighting',
+                    'Fixtures',
+                    'Design Services',
+                    'Flooring',
+                    'Technology',
+                    'Millwork',
+                    'Energy Systems'
+                ],
+                data: [9, 7, 6, 5, 4, 4, 3],
                 tooltips: [
-                    ['Lighting solutions', 'Advanced fixtures', 'Digital platforms'],
-                    ['Design services', 'Millwork', 'Flooring systems'],
-                    ['Architectural services', 'Sustainable materials', 'Custom solutions']
+                    ['LED solutions', 'Smart lighting', 'Energy efficient'],
+                    ['Custom displays', 'Modern fixtures', 'Flexible systems'],
+                    ['Store design', 'Space planning', 'Visual merchandising'],
+                    ['Sustainable materials', 'Custom solutions', 'High traffic'],
+                    ['Digital integration', 'Smart systems', 'Automation'],
+                    ['Custom woodwork', 'Displays', 'Cabinetry'],
+                    ['Management systems', 'Efficiency', 'Sustainability']
                 ]
             }
         };
@@ -107,10 +136,16 @@
                         display: false
                     },
                     scales: {
+                        xAxes: [{
+                            ticks: {
+                                fontSize: 9
+                            }
+                        }],
                         yAxes: [{
                             ticks: {
                                 beginAtZero: true,
-                                max: 10
+                                max: 10,
+                                stepSize: 2
                             }
                         }]
                     },
